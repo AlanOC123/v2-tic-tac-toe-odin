@@ -1,0 +1,22 @@
+@import './css-reset.css';
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400&display=swap');
+
+:root {
+  --bg-clr: 4, 8, 15;
+  --accent-clr-1: 80, 125, 188;
+  --accent-clr-2: 255, 51, 102;
+  --accent-clr-3: 46, 196, 186;
+  --font-clr: ;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
