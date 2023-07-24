@@ -5,23 +5,142 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
-  <title>Document</title>
+  <title>Tic Tac Toe</title>
 </head>
 <body>
-  <div class="welcome-message-container">
-    <div class="welcome-message">
-      <h1>Tic Tac Toe</h1>
-      <button id="start-game">Start Game</button>
-    </div>
-  </div>
 
-  <div class="start-game-container">
+  <!-- Welcome Message Module Start-->
+  <!-- Times Moved is to control the movement of transform in JS -->
+  <div class="welcome-message-module container" data-times-moved="1">
+
+    <div class="welcome-message">
+
+      <h1>Tic Tac Toe</h1>
+      <!-- Button to Start Next Module -->
+      <button id="start-game">Start Game</button>
+
+    </div>
+
+  </div>
+  <!-- Welcome Message Module End -->
+
+  <!-- Start Game Module Start -->
+  <div class="start-game-module container" data-times-moved="1">
+
     <h1>Select Opponent</h1>
 
+    <!-- Two Button Which Change the Set Up Module -->
     <div class="button-container">
       <button id="play-ai">Play AI</button>
       <button id="play-human">Two Player</button>
     </div>
+  </div>
+  <!-- Start Game Module Ends Here -->
+
+  <!-- Set Up Game Module Starts Here -->
+  <div class="set-up-module container" data-times-moved="1">
+
+    <!-- If Playing the AI -->
+    <div class="ai-set-up">
+
+      <!-- Set Up Container -->
+      <div class="set-up-container" data-play-ai="false">
+
+        <!-- Get Player Information -->
+        <div class="player-information">
+
+          <!-- Get Player Name -->
+          <div class="player-name">         
+            <label for="player-name">What's your Name? </label>
+            <input
+            type="text" 
+            name="player-name" 
+            id="player-name"
+            placeholder="Enter Name"
+            minlength="3"
+            maxlength="15"
+            class="input-container"
+            required>
+          </div>
+
+          <!-- Get Player Marker -->
+          <div class="get-marker-container">
+            <p>Select Avatar</p>
+            <!-- Marker Grid-->
+            <div class="marker-selection">
+              <div class="marker"><img src="./icons/avatar.svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (1).svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (2).svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (3).svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (4).svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (5).svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (6).svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (7).svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (8).svg" alt=""></div>
+            </div>
+          </div>
+        </div>
+        <!-- Player Information End -->
+
+        <!-- Enter AI Information -->
+        <div class="ai-information">
+
+          <!-- Set AI Difficulty -->
+          <div class="get-difficulty">
+            <label for="difficulty">Set AI Difficulty</label>
+            <select name="difficulty" id="difficulty">
+              <option value="easy">Easy</option>
+              <option value="easy">Medium</option>
+              <option value="easy">Hard</option>
+              <option value="easy">Impossible</option>
+            </select>
+          </div>
+          <!-- Set AI Difficulty End -->
+
+          <!-- Set AI Marker -->
+          <div class="get-marker-selection">
+            <p>Select Avatar for AI</p>
+            <!-- Marker Grid -->
+            <div class="marker-selection">
+              <div class="marker"><img src="./icons/avatar.svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (1).svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (2).svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (3).svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (4).svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (5).svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (6).svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (7).svg" alt=""></div>
+              <div class="marker"><img src="./icons/avatar (8).svg" alt=""></div>
+            </div>
+
+            <!-- Select Random -->
+            <div class="random-select">            
+              <label for="random-select">Select Random Avatar</label>
+              <input 
+              type="checkbox" 
+              name="random-select" 
+              id="random-select">
+            </div>
+
+          </div>
+          <!-- Set AI Marker End-->
+
+        </div>
+        <!-- Enter AI Information End-->
+
+      </div>
+      <!-- Set Up Container End -->
+
+    </div>
+    <!-- AI Set Up Ends Here -->
+
+    <div class="human-set-up">
+      <div class="set-up-container" data-play-human="false"></div>
+    </div>
+  </div>
+
+  <div class="game-board-module" game-type="">
+
   </div>
 </body>
 </html>

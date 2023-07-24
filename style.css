@@ -36,11 +36,13 @@ body {
 }
 
 body {
+  width: 100vw;
   background: rgb(var(--bg-clr));
   color: var(--font-clr);
 
   display: flex;
-  overflow: auto;
+  flex-flow: row;
+  overflow: hidden;
 }
 
 h1 {
@@ -69,13 +71,15 @@ button:hover {
   transform-origin: center;
 }
 
-.welcome-message-container,
-.start-game-container {
+.container {
+  scroll-snap-align: start;
   width: 100vw;
   flex-shrink: 0;
 
   display: grid;
   place-content: center;
+
+  transition: all 300ms ease-in-out;
 }
 
 .welcome-message {
@@ -96,35 +100,47 @@ button:hover {
   box-shadow: 0 0 0.2em 0.2em rgb(var(--font-clr), 0.5);
 }
 
-.start-game-container .button-container {
+.start-game-module {
+  scale: 0;
+}
+
+.set-up-module {
+  scale: 0;
+}
+
+.start-game-module .button-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
   gap: var(--gap);
 }
 
-.start-game-container .button-container button {
+.start-game-module .button-container button {
   min-width: 30%;
   filter: grayscale(1);
   color: rgb(var(--font-clr));
 }
 
-.start-game-container .button-container button:first-child {
+.start-game-module .button-container button:first-child {
   background: rgb(var(--accent-clr-1));
 }
 
-.start-game-container .button-container button:nth-child(2) {
+.start-game-module .button-container button:nth-child(2) {
   background: rgb(var(--accent-clr-2));
 }
 
-.start-game-container .button-container button:hover {
+.start-game-module .button-container button:hover {
   filter: grayscale(0);
 }
 
-.start-game-container .button-container button:first-child:hover {
+.start-game-module .button-container button:first-child:hover {
   box-shadow: 0 0 0.2em 0.2em rgb(var(--accent-clr-2), 0.5);
 }
 
-.start-game-container .button-container button:nth-child(2):hover {
+.start-game-module .button-container button:nth-child(2):hover {
   box-shadow: 0 0 0.2em 0.2em rgb(var(--accent-clr-1), 0.5);
+}
+
+.render-container {
+  background-color: rgb(var(--accent-clr-3));
 }
