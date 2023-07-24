@@ -1,39 +1,33 @@
-// Main Game Flow Module
-const mainGameModule = (() => {
+const gameBoardModule = (() => {
+  
+})
 
-  const cacheDOM = () => {
-    return {
-      mainBody: document.querySelector('body'),
+const setUpGameModule = (() => {
 
-      // Main Modules
-      welcomeMessageModule: document.querySelector('.welcome-message-module'),
-      startGameModule: document.querySelector('.start-game-module'),
-      setUpGameModule: document.querySelector('.set-up-module')
-    }
-  }
+})
 
-  //const startGameButton = document.querySelector('#start-game');
-  //const playasAI = document.querySelector('#play-ai');
+const startGameModule = (() => {
 
-  // Event Listeners
-  //startGameButton.addEventListener('click', welcomeModule().hideWelcomeScreen);
-  //playasAI.addEventListener('click', welcomeModule().hideWelcomeScreen);
-})()
+})
 
 // Welcome Module
 const welcomeModule = (() => {
 
-  const DOMCACHE = {
-    mainBody: document.querySelector('body'),
-    welcomeContainer: document.querySelector('.welcome-message-module'),
-    startGameContainer: document.querySelector('.start-game-module'),
-    setUpGameContainer: document.querySelector('.set-up-module'),
+  const cacheDOM = () => {
+    const mainBody = document.querySelector('body');
+    const welcomeMessageModule = mainBody.querySelector('.welcome-message-module');
+    const startGameButton = welcomeMessageModule.querySelector('#start-game');
+
+    return {
+      welcomeMessageModule,
+      startGameButton
+    }
   }
 
   const hideWelcomeScreen = () => {
-    DOMCACHE.welcomeContainer.style.opacity = '0';
-    DOMCACHE.startGameContainer.style.scale = "1";
-    DOMCACHE.setUpGameContainer.style.scale = '1';
+    cacheDOM().welcomeMessageModule.style.opacity = '0';
+    cacheDOM().welcomeMessageModule.style.scale = "1";
+    cacheDOM().welcomeMessageModule.style.scale = '1';
     moveLeft();
   }
 
@@ -49,6 +43,16 @@ const welcomeModule = (() => {
 
   return {
     hideWelcomeScreen,
-    DOMCACHE
+    cacheDOM
   }
-})
+})()
+
+// Main Game Flow Module
+const mainGameModule = (() => {
+
+  //const startGameButton = document.querySelector('#start-game');
+  //const playasAI = document.querySelector('#play-ai');
+
+  // Event Listeners
+  welcomeModule.cacheDOM().startGameButton.addEventListener('click', welcomeModule.hideWelcomeScreen)
+})()
