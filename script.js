@@ -1,58 +1,110 @@
-const gameBoardModule = (() => {
-  
-})
+const setUpGameModule = (function() {
 
-const setUpGameModule = (() => {
-
-})
-
-const startGameModule = (() => {
-
-})
-
-// Welcome Module
-const welcomeModule = (() => {
-
-  const cacheDOM = () => {
-    const mainBody = document.querySelector('body');
-    const welcomeMessageModule = mainBody.querySelector('.welcome-message-module');
-    const startGameButton = welcomeMessageModule.querySelector('#start-game');
+  function cacheDOM() {
+    const playerName = document.querySelector('#player-name')
+    const playerOneMarkerContainer = document.querySelector('#player-one')
+    const playerOneMarkers = playerOneMarkerContainer.querySelectorAll('.marker')
+    const aiDifficulty = document.querySelector('#difficulty');
+    const aiMarkerContainer = document.querySelector('#ai');
+    const aiMarkers = aiMarkerContainer.querySelector('.marker');
 
     return {
-      welcomeMessageModule,
-      startGameButton
+      playerName,
+      playerOneMarkers,
+      aiDifficulty,
+      aiMarkers
     }
   }
 
-  const hideWelcomeScreen = () => {
-    cacheDOM().welcomeMessageModule.style.opacity = '0';
-    cacheDOM().welcomeMessageModule.style.scale = "1";
-    cacheDOM().welcomeMessageModule.style.scale = '1';
-    moveLeft();
+  console.log(cacheDOM().aiDifficulty);
+})()
+
+const startGameModule = (function() {
+  function cacheDOM() {
+    const playAIButton = document.querySelector('#play-ai');
+    const playHumanButton = document.querySelector('#play-human');
+
+    return {
+      playAIButton,
+      playHumanButton,
+    }
   }
 
-  const moveLeft = () => {
-    const containers = document.querySelectorAll('.container')
-    containers.forEach(container => {
-      const timesMoved = Number(container.dataset.timesMoved);
-      console.log(-100 * timesMoved);
-      container.style.transform = `translateX(${(-100 * timesMoved)}%)`;
-      container.dataset.timesMoved++;
-    })
+
+
+  return {
+    cacheDOM
+  }
+
+})()
+
+const welcomeModule = (function() {
+
+  function cacheDOM() {
+    const startButton = document.querySelector('#start-game');
+
+    return {
+      startButton
+    }
   }
 
   return {
-    hideWelcomeScreen,
     cacheDOM
   }
 })()
 
-// Main Game Flow Module
-const mainGameModule = (() => {
+const mainGame = (function() {
 
-  //const startGameButton = document.querySelector('#start-game');
-  //const playasAI = document.querySelector('#play-ai');
+  const { welcomeContainer, startGameContainer, setUpGameContainer, gameBoardContainer } = cacheDOM();
 
-  // Event Listeners
-  welcomeModule.cacheDOM().startGameButton.addEventListener('click', welcomeModule.hideWelcomeScreen)
+  function cacheDOM() {
+    let modules = document.querySelectorAll('.container');
+    modules = [...modules];
+    const [ welcomeContainer, startGameContainer, setUpGameContainer, gameBoardContainer] = modules;
+
+    return {
+      welcomeContainer,
+      startGameContainer,
+      setUpGameContainer,
+      gameBoardContainer
+    }
+  }
+
+  function hideModule (module) {
+    const style = module.style;
+    if (module.classList.contains('start-game-module')) {
+      style.transformOrigin = 'top';
+      style.transform = 'translateY(-100%)'
+    } else {
+      style.transformOrigin = 'left';
+      style.transform = 'translateX(-100%)';
+    }
+    
+    style.opacity = '0';
+    style.transition = 'all 300ms ease-in-out'
+  }
+
+  function showModule (module) {
+    const style = module.style;
+    if (module.classList.contains('set-up-game-module')) {
+      style.transformOrigin = 'bottom;'
+    } else {
+      style.transformOrigin = 'right';
+    }
+    style.opacity = style.scale = '1';
+    style.transition = 'all 300ms ease-in-out'
+  }
+
+  function startGame () {
+    hideModule(welcomeContainer);
+    showModule(startGameContainer);
+  }
+
+  function setUpGame () {
+    hideModule(startGameContainer);
+    showModule(setUpGameContainer);
+  }
+
+  welcomeModule.cacheDOM().startButton.addEventListener('click', startGame);
+  startGameModule.cacheDOM().playAIButton.addEventListener('click', setUpGame);
 })()
