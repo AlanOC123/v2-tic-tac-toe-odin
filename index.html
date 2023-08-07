@@ -9,34 +9,50 @@
 </head>
 <body>
 
-  <div class="game container">
+  <div class="welcome container">
+    <h1 class="title">Tic Tac Toe</h1>
+    <button id="continue-button">Continue</button>
+  </div>
 
-    <h1>Tic Tac Toe</h1>
+  <div class="game-mode container hidden">
+    <button id="play-ai">Play AI</button>
+    <button id="play-human">Two Player</button>
+  </div>
 
-    <div class="controls">
-      <input type="text"
-      id="player-1"
-      placeholder="Player One Name">
-  
-      <input type="text"
-      id="player-2"
-      placeholder="Player Two Name">
-  
-      <button id="start-btn">Submit</button>
-      <button id="restart-btn">Restart Game</button>
+  <div class="game-setup container hidden">    
+    <div class="card" id="ai-game">
+      <input type="text" id="player-1-name">
+      <select name="difficulty" id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
     </div>
+    <div class="card" id="human-game">
+      <input type="text" id="player-1-name" placeholder="Enter Name">
+      <input type="text" id="player-2-name" placeholder="Enter Name">
+    </div>
+
+    <button id="start-game">Start Game</button>
+  </div>
+
+  <div class="game-play container hidden">
+    <button id="new-game-btn">New Game</button>
+    <button id="restart-btn">Restart Game</button>
   
     <div class="gameboard"></div>
   
-    <div class="message"></div>
-    <div class="results-display"></div>
+    <div id="scoreboard">
+      <p class="'score" id="player-1-score"><p>
+
+      <p class="score" id="player-2-score"></p>
+    </div>
   </div>
 
   <div class="game-over container hidden">
-    <div class="modal">
       <p></p>
-      <button id="play-again">Play Again</button>
-    </div>
+      <button id="continue-btn">Continue</button>
+      <button id="new-game-btn">New Game</button>
   </div>
 
 </body>

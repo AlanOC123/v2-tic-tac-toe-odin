@@ -1,3 +1,165 @@
+const displayController = (() => {
+  const parent = document.querySelector('body');
+  const containers = [...document.querySelectorAll('.container')];
+  const welcomeContainer = containers[0];
+  const gameModeContainer = containers[1];
+  const setUpContainer = containers[2];
+  const gamePlayContainer = containers[3];
+  const gameOverContainer = containers[4];
+
+  function node (value) {
+    let next = null;
+    let prev = null;
+
+    return {
+      value,
+      next,
+      prev
+    }
+  } 
+
+  function linkedList () {
+    let head = null;
+    let size = 0;
+
+    const isEmpty = () => { return size === 0 ? true : false }
+    const getSize = () => { return size }
+
+    function prepend (value) {
+      const newNode = node(value);
+      if (!isEmpty()) { newNode.next = head; }
+      head = newNode;
+      size++
+    }
+
+    function append (value) {
+      const newNode = node (value);
+
+      if (isEmpty()) { 
+        head = newNode;
+      } else {
+        let prev = head;
+        while (prev.next) {
+          prev = prev.next;
+        }
+        prev.next = newNode;
+
+        if (value === gameOverContainer || value === gamePlayContainer) {
+          newNode.prev = searchList(gameModeContainer).curr;
+        } else {
+          newNode.prev = prev;
+        }
+      }
+      size++
+    }
+
+    function searchList (module) {
+      if (isEmpty()) { 
+        console.log('Empty')
+        return
+      }
+
+      let index = 0;
+      let value = null;
+      let curr = head;
+
+      while (curr) {
+        if (curr.value === module) {
+          value = curr.value
+          break
+        }
+        curr = curr.next;
+        index++;
+      }
+
+      if (!value) {
+        console.log('Not Found')
+        return
+      }
+
+      return {
+        index,
+        value,
+        curr
+      }
+    }
+
+    function progressFlow (module) {
+      if (module === gameOverContainer) { return }
+      const target = searchList(module).curr;
+      const next = target.next;
+      hideModule(target);
+      showModule(next);
+    }
+
+    function regressFlow (module) {
+      console.log(module)
+      if (!(module === gameOverContainer || module === gamePlayContainer)) { return }
+      const target = searchList(module).curr
+      hideModule(target);
+      showModule(target.prev);
+    }
+
+    function hideModule (target) {
+      target.value.classList.add('hidden');
+    }
+
+    function showModule (target) {
+      target.value.classList.remove('hidden')
+    }
+
+    function printList () {
+      if (isEmpty()) { 
+        console.log('Empty') 
+        return
+      }
+
+      let curr = head;
+
+      while (curr) {
+        console.log(curr)
+        curr = curr.next;
+      }
+    }
+
+    return {
+      isEmpty,
+      getSize,
+      prepend,
+      append,
+      printList,
+      progressFlow,
+      regressFlow
+    }
+  }
+
+  const containerList = linkedList();
+
+  containerList.prepend(welcomeContainer);
+  containerList.append(gameModeContainer);
+  containerList.append(setUpContainer);
+  containerList.append(gamePlayContainer);
+  containerList.append(gameOverContainer);
+  containerList.regressFlow(gamePlayContainer);
+
+
+
+  const getContainers = () => {
+    return {
+      parent,
+      welcomeContainer,
+      gameModeContainer,
+      setUpContainer,
+      gamePlayContainer,
+      gameOverContainer
+    }
+  }
+
+  return {
+    getContainers,
+  }
+})()
+
 const gameOverModule = (() => {
   const container = document.querySelector('.game-over');
   const para = container.querySelector('p')
@@ -16,6 +178,20 @@ const gameOverModule = (() => {
     showModule
   }
 
+})()
+
+const scoreDisplayModule = (() => {
+  const playerOneScore = document.querySelector('#player-1-score');
+  const playerTwoScore = document.querySelector('#player-2-score');
+
+  function updatePlayerScore (players) {
+    playerOneScore.textContent = `${players[0].getPlayerName()} Score: ${players[0].getPlayerScore()}`;
+    playerTwoScore.textContent = `${players[1].getPlayerName()} Score: ${players[1].getPlayerScore()}`;
+  }
+
+  return {
+    updatePlayerScore
+  }
 })()
 
 // Function that Renders and Gives Access to the Board
@@ -107,10 +283,12 @@ const createPlayer = (_playerName, _playerMarker) => {
   // Private Player Variables
   let _moveset = [];
   let _playerMoves = 0;
+  let _playerScore = 0;
 
   // Functions to get Player Information
   const getPlayerName = () => { return _playerName }
   const getPlayerMarker = () => { return _playerMarker }
+  const getPlayerScore = () => { return _playerScore }
 
   // Functions to Manipulate the Player
   function checkForWin() {
@@ -141,6 +319,8 @@ const createPlayer = (_playerName, _playerMarker) => {
 
     if (_playerMoves === 5 && !(won)) { return 'Draw' }
 
+    if (won) { _playerScore++ }
+
     return won;
   }
 
@@ -157,6 +337,7 @@ const createPlayer = (_playerName, _playerMarker) => {
   return {
     getPlayerName,
     getPlayerMarker,
+    getPlayerScore,
     updateMoveset,
     checkForWin,
     resetPlayers
@@ -174,8 +355,7 @@ const gameFlow = (() => {
 
   // Start the game
   function startGame () {
-    if (start) { return }
-    console.log(1);
+    const btn = document.querySelector('#start-btn');
     gameOver = false;
     currentPlayerIndex = 0;
 
@@ -187,7 +367,13 @@ const gameFlow = (() => {
       createPlayer(document.querySelector('#player-1').value, 'X'),
       createPlayer(document.querySelector('#player-2').value, 'O')
     ];
+
+    scoreDisplayModule.updatePlayerScore(players);
     start = true;
+    if (start) { 
+      btn.textContent = 'New Game';
+      btn.removeEventListener('click', startGame)
+    }
   }
 
   function resetGame () {
@@ -228,6 +414,7 @@ const gameFlow = (() => {
     let text;
     if (gameOver === 'Draw') {text = 'The Game is a Tie, Play Again?'}
     if (gameOver) {text = `${players[currentPlayerIndex].getPlayerName()} has won`}
+    if (gameOver) {players[currentPlayerIndex]}
     document.querySelector('#player-1').value = '';
     document.querySelector('#player-2').value = '';
     gameBoardModule.hideModule();
@@ -238,6 +425,7 @@ const gameFlow = (() => {
     gameOverModule.hideModule()
     gameBoardModule.showModule()
     gameBoardModule.clearBoard();
+    scoreDisplayModule.updatePlayerScore(players);
 
     players = [];
     start = false;
@@ -261,8 +449,12 @@ const eventBus = (() => {
   const board = gameBoardModule.getGameBoard();
 
   // Adds event listeners to the buttons
-  startGameBtn.addEventListener('click', gameFlow.startGame);
-  restartGameBtn.addEventListener('click', gameFlow.resetGame);
-  playAgainButton.addEventListener('click', gameFlow.newGame)
-  board.addEventListener('click', gameFlow.registerMove);
+  // startGameBtn.addEventListener('click', gameFlow.startGame);
+  // restartGameBtn.addEventListener('click', gameFlow.resetGame);
+  // playAgainButton.addEventListener('click', gameFlow.newGame)
+  // board.addEventListener('click', gameFlow.registerMove);
+})()
+
+const welcomeModule = (() => {
+  const continueButton = document.querySelector('#continue-button');
 })()
