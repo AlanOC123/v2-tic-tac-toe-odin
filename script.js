@@ -83,7 +83,6 @@ const createAI = (_difficulty, _avatar, _marker) => {
       }
       const ind = Math.floor(Math.random() * moves.length);
       const move = moves[ind];
-      console.log(move);
       boardArray[move.i][move.j] = playerMarker;
       gameboardDisplay.render(boardArray);
       return
@@ -148,8 +147,7 @@ const createAI = (_difficulty, _avatar, _marker) => {
 
     if (_difficulty === 'medium') {
       const chance = Math.floor(Math.random() * 10)
-      console.log(chance);
-        if (chance < 7) {
+        if (chance < 4) {
           let moves = [];
           for (let i = 0; i < board.length; i++) {
             for (let j = 0; j < board.length; j++) {
@@ -157,10 +155,8 @@ const createAI = (_difficulty, _avatar, _marker) => {
             }
           }
           const ind = Math.floor(Math.random() * moves.length);
-          console.log(moves[ind]);
           move.i = moves[ind].i;
           move.j = moves[ind].j;
-          console.log(move);
         }
       }
   
@@ -874,7 +870,6 @@ const setUpGameModule = (() => {
       const { playerOneName, playerTwoName, playerOneAvatar, playerTwoAvatar } = setUpHumanGame();
       return [createPlayer(playerOneName, playerOneAvatar, 'X'), createPlayer(playerTwoName, playerTwoAvatar, 'O')]
     } else {
-      console.log(gameType);
       return 'error';
     }
   }
