@@ -9,51 +9,135 @@
 </head>
 <body>
 
-  <div class="welcome container">
-    <h1 class="title">Tic Tac Toe</h1>
-    <button id="continue-button">Continue</button>
+  <div class="welcome container hidden">
+    <h1>Tic Tac Toe</h1>
+    <button id="enter-btn">Continue</button>
   </div>
 
   <div class="game-mode container hidden">
-    <button id="play-ai">Play AI</button>
-    <button id="play-human">Two Player</button>
+    <h2>Select Game Mode</h2>
+    <div class="button-container">    
+      <button id="play-ai">Play AI</button>
+      <button id="play-human">Two Player Game</button>
+    </div>
   </div>
 
-  <div class="game-setup container hidden">    
-    <div class="card" id="ai-game">
-      <input type="text" id="player-1-name">
-      <select name="difficulty" id="difficulty">
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-      </select>
-    </div>
-    <div class="card" id="human-game">
-      <input type="text" id="player-1-name" placeholder="Enter Name">
-      <input type="text" id="player-2-name" placeholder="Enter Name">
+  <div class="set-up-game container hidden">
+    <div class="ai card hidden">
+      <div class="form-inputs">
+        <div class="game-inputs">
+          <div class="name-input">
+            <h1>Player Name</h1>
+            <input type="text" name="player-name" id="player-name" placeholder="Name">
+          </div>
+          <div class="difficulty-input">
+            <h1>AI DIfficulty</h1>
+            <select name="difficulty" id="difficulty">
+              <option value="easy">Easy</option>
+              <option value="medium" selected>Medium</option>
+              <option value="hard">Hard</option>
+              <option value="unbeatable">Unbeatable</option>
+            </select>
+          </div>
+        </div>
+        <div class="avatar-inputs">
+          <h1>Player Avatar</h1>
+          <div class="markers" id="player-markers">
+            <div class="marker"><img src="./icons/avatar.svg" alt="" srcset=""></div>
+            <div class="marker"><img src="./icons/avatar (1).svg" alt="" srcset=""></div>
+            <div class="marker"><img src="./icons/avatar (2).svg" alt="" srcset=""></div>
+            <div class="marker"><img src="./icons/avatar (3).svg" alt="" srcset=""></div>
+            <div class="marker"><img src="./icons/avatar (4).svg" alt="" srcset=""></div>
+            <div class="marker"><img src="./icons/avatar (5).svg" alt="" srcset=""></div>
+            <div class="marker"><img src="./icons/avatar (6).svg" alt="" srcset=""></div>
+            <div class="marker"><img src="./icons/avatar (7).svg" alt="" srcset=""></div>
+            <div class="marker"><img src="./icons/avatar (8).svg" alt="" srcset=""></div>
+          </div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="back-btn">Go Back</button>
+        <button class="play-game-btn">Play Game</button>
+      </div>
     </div>
 
-    <button id="start-game">Start Game</button>
+    <div class="human card hidden">
+      <div class="form-inputs">
+        <div class="game-inputs">
+          <div class="name-input">
+            <h1>Player One</h1>
+            <input type="text" name="player-name" id="player-1-name" placeholder="Name">
+          </div>
+          <div class="name-input">
+            <h1>Player Two</h1>
+            <input type="text" name="player-name" id="player-2-name" placeholder="Name">
+          </div>
+        </div>
+        <div class="avatar-inputs">
+          <div class="player-1">
+            <h1>Player Avatar</h1>
+            <div class="markers" id="player-1-markers">
+              <div class="marker"><img src="./icons/avatar.svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (1).svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (2).svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (3).svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (4).svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (5).svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (6).svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (7).svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (8).svg" alt="" srcset=""></div>
+            </div>
+          </div>
+          <div class="player-2">
+            <h1>Player Avatar</h1>
+            <div class="markers" id="player-2-markers">
+              <div class="marker"><img src="./icons/avatar.svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (1).svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (2).svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (3).svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (4).svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (5).svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (6).svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (7).svg" alt="" srcset=""></div>
+              <div class="marker"><img src="./icons/avatar (8).svg" alt="" srcset=""></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="back-btn">Go Back</button>
+        <button class="play-game-btn">Play Game</button>
+      </div>
+    </div>
   </div>
 
   <div class="game-play container hidden">
-    <button id="new-game-btn">New Game</button>
-    <button id="restart-btn">Restart Game</button>
-  
+    <div class="score-field">
+      <h1 id="player-1-name-display"></h1>
+      <h1 id="player-1-score-display"></h1>
+    </div>
+    <div class="score-field">
+      <h1 id="player-2-name-display"></h1>
+      <h1 id="player-2-score-display"></h1>
+    </div>
     <div class="gameboard"></div>
-  
-    <div id="scoreboard">
-      <p class="'score" id="player-1-score"><p>
-
-      <p class="score" id="player-2-score"></p>
+    <div class="controls">
+      <button id="reset-btn">Reset Board</button>
+      <button id="restart-btn">Restart Game</button>
+      <button class="new-game-btn">New Game</button>
+    </div>
     </div>
   </div>
 
   <div class="game-over container hidden">
-      <p></p>
-      <button id="continue-btn">Continue</button>
-      <button id="new-game-btn">New Game</button>
-  </div>
+    <p></p>
+    <div class="controls">    
+      <button id="continue-btn">Continue Game</button>
+      <button class="new-game-btn">New Game</button>
+    </div>
 
+  </div>
 </body>
+
 </html>
