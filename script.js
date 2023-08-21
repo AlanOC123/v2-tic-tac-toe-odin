@@ -694,6 +694,7 @@ const gameOverModule = (() => {
     } else {
       para.textContent = 'Tie Game, Play Again'
     }
+    winner = false;
   }
 
   function hideModule () {
@@ -1006,10 +1007,14 @@ const eventBus = (() => {
 
   const continueButton = document.querySelector('#continue-btn');
   continueButton.addEventListener('click', () => {
+    const { players } = gameStateManager.requestState();
     gameStateManager.setGameState(true);
     gameboardDisplay.clearBoard();
     gameOverModule.hideModule();
     scoreDisplayModule.updatePlayerScore();
+    players.forEach(player => {
+      player.updateWinner(false);
+    })
   })
 })()
 
